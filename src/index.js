@@ -7,10 +7,10 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
 } from "@apollo/client";
-
+import { store, persistor } from './redux/configureStore';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
   cache: new InMemoryCache()
@@ -18,12 +18,17 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    
-   
     <ApolloProvider client={client}>
+    
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
     <BrowserRouter>
     <MainComponent client={client}/>
     </BrowserRouter>
+    </PersistGate>
+    </Provider>
+  
+    
     </ApolloProvider>
     
   </React.StrictMode>,

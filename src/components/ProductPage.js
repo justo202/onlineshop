@@ -1,5 +1,5 @@
 import react, { Component } from "react";
-import { PRODUCT } from "../database/queries";
+import { getSelectedProduct } from "../database/databaseFunctions";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -10,60 +10,56 @@ class ProductPage extends Component {
       productInfo: [],
       selectedAttributes: null,
       currency: this.props.currency,
-      displayImage: ''
+      displayImage: "",
     };
   }
-  getSelectedProduct = (productId) => {
-    this.props.client
-      .query({
-        query: PRODUCT(productId),
-      })
-      .then((result) => {
-        var attributeMap = {};
-        result.data.product.attributes.forEach((element) => {
-          attributeMap[element.id] = "";
-        });
-        this.setState({
-          productLoading: result.loading,
-          productInfo: result.data.product,
-          selectedAttributes: attributeMap,
-          displayImage: result.data.product.gallery[0]
-        });
-      });
-  };
+
   componentDidMount() {
-    this.getSelectedProduct(this.state.id);
+    getSelectedProduct(this.state.id, this.props.client).then((result) => {
+      this.setState({
+        productLoading: result.productLoading,
+        productInfo: result.productInfo,
+        selectedAttributes: result.selectedAttributes,
+        displayImage: result.displayImage,
+      });
+    });
   }
 
+  // Updates the currency in the state each time props change
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.currency !== props.currency) {
       return {
         currency: props.currency,
-      }
+      };
     }
-    return null
+    return null;
   }
-  setSelectedAttribute(attributeId, value) {
+  setSelectedAttribute(attributeId, value, type) {
     var copy = this.state.selectedAttributes;
-    copy[attributeId] = value;
+    copy[attributeId] = [value, type];
     this.setState({
       selectedAttributes: copy,
     });
   }
+  //Renders the attribute section of the product
   renderAttributes(attributes) {
     const overlay = attributes.map((attribute) => (
       <div key={attribute.id}>
         <h4 style={{ fontWeight: "bolder" }}>
           {attribute.name}:{" "}
           <span style={{ fontStyle: "italic" }}>
-            {this.state.selectedAttributes[attribute.id]}
+            {this.state.selectedAttributes[attribute.id][0]}
           </span>
         </h4>
         <div className="grid">
           {attribute.items.map((item) => (
             <button
               onClick={() =>
-                this.setSelectedAttribute(attribute.id, item.displayValue)
+                this.setSelectedAttribute(
+                  attribute.id,
+                  item.displayValue,
+                  attribute.type
+                )
               }
               style={{
                 backgroundColor:
@@ -82,31 +78,47 @@ class ProductPage extends Component {
     return overlay;
   }
   renderProductPrice(prices) {
-   
-    const cur = this.state.currency;
-   const price = this.props.getProductPrice(prices, cur.label)
-   console.log(price)
+    const cur = this.props.currency;
+    const price = this.props.getProductPrice(prices, cur.label);
 
-   return(
-
-    <h4 style={{ marginTop: 0, fontWeight: "bold" }}>{cur.symbol}{price.amount}</h4>
-   )
-   
+    return (
+      <h4 style={{ marginTop: 0, fontWeight: "bold" }}>
+        {cur.symbol}
+        {price.amount}
+      </h4>
+    );
   }
 
   changeDisplayImage(imgURL) {
     this.setState({
-      displayImage: imgURL
-    })
+      displayImage: imgURL,
+    });
+  }
 
+  addToCart(attributes, { brand, name, prices, gallery }, id) {
+    if (Object.values(attributes).includes("")) {
+      alert("Please select all attributes");
+    } else {
+      //create a copy of the attribues and not reference them directly SINCE OBJCETS ARE PASSED AS REFERENCES AND NOT ACTUAL OBJECTS weaauirhjodtpkh
+      const product = {
+        attributes: { ...attributes },
+        brand,
+        name,
+        prices,
+        gallery,
+        id,
+        quantity: 1,
+      };
+      console.log(product);
+      this.props.addToCart(product);
+      alert("Product added!");
+    }
   }
   render() {
-    
-    
-  
     if (!this.state.productLoading) {
-        const { gallery, brand, name, attributes, description, prices } = this.state.productInfo;
-       
+      const { gallery, brand, name, attributes, description, prices, inStock } =
+        this.state.productInfo;
+      console.log(this.state.productInfo);
       return (
         <div className="grid">
           <div className="product-image-grid">
@@ -116,7 +128,7 @@ class ProductPage extends Component {
                 onTouchStart={() => this.changeDisplayImage(image)}
                 key={index}
                 width={"100%"}
-                style={{transitionDuration: '2'}}
+                style={{ transitionDuration: "2" }}
                 alt="Side image of product"
                 src={image}
               />
@@ -126,7 +138,7 @@ class ProductPage extends Component {
             <img
               height={"100%"}
               width={"100%"}
-              alt="temp image"
+              alt="main display"
               src={this.state.displayImage}
             />
           </div>
@@ -146,14 +158,26 @@ class ProductPage extends Component {
               style={{
                 width: "100%",
                 padding: "15px",
-                backgroundColor: "green",
+                backgroundColor: "#57ff65",
                 color: "white",
                 border: "none",
+                opacity: inStock ? 1 : 0.6,
+                cursor: inStock ? "pointer" : "auto",
               }}
+              onClick={
+                inStock
+                  ? () =>
+                      this.addToCart(
+                        this.state.selectedAttributes,
+                        this.state.productInfo,
+                        this.state.id
+                      )
+                  : undefined
+              }
             >
-              Add to cart
+              {inStock ? "Add to cart" : "Item out of stock"}
             </button>
-              <div dangerouslySetInnerHTML={{__html: `${description}`}} />
+            <div dangerouslySetInnerHTML={{ __html: `${description}` }} />
           </div>
         </div>
       );

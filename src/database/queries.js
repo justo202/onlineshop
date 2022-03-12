@@ -1,19 +1,15 @@
-import {
-    gql
-  } from "@apollo/client";
-
-
+import { gql } from "@apollo/client";
 
 const CATEGORY_AND_CURENCY_NAMES = gql`
-query {
-  categories {
-    name
+  query {
+    categories {
+      name
+    }
+    currencies {
+      label
+      symbol
+    }
   }
-  currencies {
-    label
-    symbol
-  }
-}
 `;
 
 const PRODUCT = (id) => {
@@ -45,13 +41,11 @@ const PRODUCT = (id) => {
       }
       brand
     }
-  }`
+  }`;
+};
 
-}
-
-const PRODUCTS =  (category) => {
-
-    return gql`
+const PRODUCTS = (category) => {
+  return gql`
     query {
         category (input: {title: "${category}"}){
           products {
@@ -70,10 +64,6 @@ const PRODUCTS =  (category) => {
         }
       }
     `;
+};
 
-}
-
-export {
-  CATEGORY_AND_CURENCY_NAMES, PRODUCTS, PRODUCT
-
-}
+export { CATEGORY_AND_CURENCY_NAMES, PRODUCTS, PRODUCT };

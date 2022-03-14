@@ -8,7 +8,7 @@ export const Cart = (state = [], action) => {
       // finds the product in the state if it exists
       const exist = state.find(
         (item) =>
-          item.id == product.id &&
+          item.id === product.id &&
           keysEqual(item.attributes, product.attributes)
       );
         // if it exists then only increase it's quantity if it does not then add it to the state
@@ -37,7 +37,7 @@ export const Cart = (state = [], action) => {
       if (product.quantity > 1) {
         console.log(product);
         newState = newState.map((item) =>
-          item.id == product.id &&
+          item.id === product.id &&
           keysEqual(item.attributes, product.attributes)
             ? { ...item, quantity: item.quantity - 1 }
             : item
@@ -45,7 +45,7 @@ export const Cart = (state = [], action) => {
       } else {
         // Filters out the product. find it by finding the matching ID and then checking if it has the same attributes
         newState = newState.filter((item) => {
-          if (item.id != product.id) {
+          if (item.id !== product.id) {
             return true;
           } else if (!keysEqual(item.attributes, product.attributes)) {
             return true;

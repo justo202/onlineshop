@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import CartItem from "./CartItem";
 
 class CartPage extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   renderCartItems(cart) {
     return cart.map((item) => {

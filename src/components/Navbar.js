@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import { CATEGORY_AND_CURENCY_NAMES } from "../database/queries";
 import CurrencySelect from "./CurrencySelect";
 import { Link } from "react-router-dom";
 import CartDropDown from "./CartDropDown";
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const {

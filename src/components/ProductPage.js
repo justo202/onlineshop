@@ -1,4 +1,4 @@
-import react, { Component } from "react";
+import React, { Component } from "react";
 import { getSelectedProduct } from "../database/databaseFunctions";
 
 class ProductPage extends Component {
@@ -63,12 +63,12 @@ class ProductPage extends Component {
               }
               style={{
                 backgroundColor:
-                  attribute.type == "swatch" ? `${item.value}` : "",
+                  attribute.type === "swatch" ? `${item.value}` : "",
               }}
               key={item.id}
               className="atrribute-select"
             >
-              {attribute.type == "text" && item.displayValue}
+              {attribute.type === "text" && item.displayValue}
             </button>
           ))}
         </div>
@@ -118,7 +118,6 @@ class ProductPage extends Component {
     if (!this.state.productLoading) {
       const { gallery, brand, name, attributes, description, prices, inStock } =
         this.state.productInfo;
-      console.log(this.state.productInfo);
       return (
         <div className="grid">
           <div className="product-image-grid">
@@ -129,7 +128,7 @@ class ProductPage extends Component {
                 key={index}
                 width={"100%"}
                 style={{ transitionDuration: "2" }}
-                alt="Side image of product"
+                alt="smaller product"
                 src={image}
               />
             ))}

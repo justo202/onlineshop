@@ -20,7 +20,7 @@ export const Total = (
 
       return newState;
     case ActionTypes.INIT_TOTAL:
-      if (state[0].amount == 0)
+      if (state[0].amount === 0)
         return action.payload.map((item) => ({ ...item, amount: 0 }));
       else {
         return state;

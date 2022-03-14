@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class Product extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    const { img, name, price, symbol, inStock, id, onClick } = this.props;
+    const { img, name, price, symbol, inStock, id } = this.props;
     return (
       <Link
         style={{ textDecoration: "none", color: "inherit" }}

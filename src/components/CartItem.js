@@ -25,7 +25,7 @@ class CartItem extends Component {
         <button
           style={{
             backgroundColor:
-              attributes[key][1] == "swatch" ? `${attributes[key][0]}` : "",
+              attributes[key][1] === "swatch" ? `${attributes[key][0]}` : "",
             width: "auto",
             minWidth: "50px",
             marginRight: "5px",
@@ -34,7 +34,7 @@ class CartItem extends Component {
           key={index}
           className="atrribute-select"
         >
-          {attributes[key][1] == "text" && attributes[key][0]}
+          {attributes[key][1] === "text" && attributes[key][0]}
         </button>
       );
     });

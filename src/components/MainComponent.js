@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import ProductPage from "./ProductPage";
 import { fetchProducts, selectCategory, fetchNavbarInfo, selectCurrency, addToCart, incrementCartItem, decrementCartItem } from "../redux/ActionCreator";
 import CartPage from "./cartPage";
-import { Link } from "react-router-dom";
 
 
 
@@ -55,9 +54,9 @@ class MainComponent extends Component {
   };
   getProductPrice = (prices, currency) => {
     
-    return prices.find((productPrice) => {
-      if (productPrice.currency.label === currency) return productPrice;
-    });
+    return prices.find((productPrice) => 
+      productPrice.currency.label === currency
+    );
   };
 
   componentDidMount() {
@@ -79,7 +78,7 @@ class MainComponent extends Component {
     );
   };
   capitalizeName = (name) => {
-    if(name == '') return
+    if(name === '') return
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
   render() {

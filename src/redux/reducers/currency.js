@@ -4,7 +4,7 @@ export const Currency = (
   state = {
     currency: [""],
     selected: { symbol: "$", label: "USD" },
-    isLoading: false,
+    isLoading: true,
   },
   action
 ) => {

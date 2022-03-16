@@ -7,6 +7,8 @@ export const getSelectedProducts = (client, selectedCategory) =>
     })
     .then((result) => {
       return result.data.category.products;
+    }).catch(() => {
+      console.log('Failed to fetch products!')
     });
 
 export const getAllCurencyAndCategory = (client) =>
@@ -19,6 +21,8 @@ export const getAllCurencyAndCategory = (client) =>
         categories: result.data.categories,
         currencies: result.data.currencies,
       };
+    }).catch(() => {
+      console.log('Failed to fetch currency and category!')
     });
 
 export const getSelectedProduct = (productId, client) =>
@@ -37,4 +41,6 @@ export const getSelectedProduct = (productId, client) =>
         selectedAttributes: attributeMap,
         displayImage: result.data.product.gallery[0],
       };
+    }).catch(() => {
+      console.log('Failed to fetch selected product!')
     });

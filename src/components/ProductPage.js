@@ -16,12 +16,13 @@ class ProductPage extends Component {
 
   componentDidMount() {
     getSelectedProduct(this.state.id, this.props.client).then((result) => {
-      this.setState({
-        productLoading: result.productLoading,
-        productInfo: result.productInfo,
-        selectedAttributes: result.selectedAttributes,
-        displayImage: result.displayImage,
-      });
+      if(result !== undefined)
+        this.setState({
+          productLoading: result.productLoading,
+          productInfo: result.productInfo,
+          selectedAttributes: result.selectedAttributes,
+          displayImage: result.displayImage,
+        });
     });
   }
 

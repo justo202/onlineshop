@@ -1,7 +1,7 @@
 import * as ActionTypes from "../actionTypes";
 
 export const Category = (
-  state = { categories: ["all"], selected: "all", isLoading: false },
+  state = { categories: ["all"], selected: "all", isLoading: true },
   action
 ) => {
   switch (action.type) {

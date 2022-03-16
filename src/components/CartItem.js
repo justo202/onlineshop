@@ -101,7 +101,6 @@ class CartItem extends Component {
   }
   nextImage() {
     const { displayImage, galleryLength } = this.state;
-    console.log(displayImage);
     this.setState({
       displayImage:
         displayImage + 1 < galleryLength ? displayImage + 1 : displayImage,

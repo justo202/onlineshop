@@ -7,15 +7,20 @@ import {
 export const fetchProducts = (client, selectedCategory) => (dispatch) => {
   dispatch(productsLoading(true));
   getSelectedProducts(client, selectedCategory).then((result) => {
-    dispatch(updateProducts(result));
+    if(result !== undefined)
+     dispatch(updateProducts(result));
   });
 };
 export const fetchNavbarInfo = (client) => (dispatch) => {
   dispatch(navbarLoading(true));
   getAllCurencyAndCategory(client).then((result) => {
-    dispatch(fetchCategories(result.categories));
-    dispatch(fetchCurrency(result.currencies));
-    dispatch(initTotal(result.currencies));
+    if(result !== undefined){
+      dispatch(fetchCategories(result.categories));
+      dispatch(fetchCurrency(result.currencies));
+      dispatch(initTotal(result.currencies));
+
+    }
+
   });
 };
 export const selectCategory = (category) => ({

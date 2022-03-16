@@ -78,7 +78,7 @@ class MainComponent extends Component {
     );
   };
   capitalizeName = (name) => {
-    if(name === '') return
+    if(name === undefined || name === null || name === '') return
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
   render() {

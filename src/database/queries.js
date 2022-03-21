@@ -53,6 +53,7 @@ const PRODUCTS = (category) => {
             name
             inStock
             gallery
+            brand
             prices {
               currency {
                 label

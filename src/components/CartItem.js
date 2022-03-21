@@ -9,7 +9,6 @@ class CartItem extends Component {
   }
   renderProductPrice(prices) {
     const cur = this.props.currency;
-    console.log(cur.label);
     const price = this.props.getProductPrice(prices, cur.label);
 
     return (
@@ -22,25 +21,53 @@ class CartItem extends Component {
   renderProductSelectedAttributes(attributes) {
     const mapped = Object.keys(attributes).map((key, index) => {
       return (
+        <div className="attribute-display">
+        <h6>{key}</h6>
         <button
           style={{
             backgroundColor:
               attributes[key][1] === "swatch" ? `${attributes[key][0]}` : "",
-            width: "auto",
-            minWidth: "50px",
-            marginRight: "5px",
-            padding: "5px",
           }}
           key={index}
           className="atrribute-select"
         >
           {attributes[key][1] === "text" && attributes[key][0]}
         </button>
+        </div>
       );
     });
 
-    return mapped;
+    return (
+      <div className="product-atributes-cart">
+          {mapped}
+
+      </div>
+      
+      );
   }
+  renderProductSelectedAttributesDropdown(attributes) {
+
+    const mapped = Object.keys(attributes).map((key, index) => {
+      console.log(attributes[key])
+      return (
+       
+          <li>
+          {key}: <span style={{color: attributes[key][1] === 'swatch' ? attributes[key][2] : ''}}className="attribute">{attributes[key][0]}</span>
+          </li>
+        
+      );
+    });
+
+    return (
+      <ul className="attribute-dropdown-list">
+        {mapped}
+      </ul>
+      
+      );
+
+  }
+
+
   renderQuantity(quantity, itemInfo) {
     return (
       <div className="qty-cart">
@@ -115,6 +142,7 @@ class CartItem extends Component {
   render() {
     const { name, brand, prices, attributes, gallery, id, quantity } =
       this.props.data;
+    const {isDropDown = false} = this.props
     return (
       <div className="cart-item-container">
         <div className="cart-item-info">
@@ -123,9 +151,10 @@ class CartItem extends Component {
             <h3 style={{ fontWeight: "normal" }}>{name}</h3>
           </div>
           {this.renderProductPrice(prices)}
-          <div className="product-atributes-cart">
-            {this.renderProductSelectedAttributes(attributes)}
-          </div>
+          {isDropDown ? this.renderProductSelectedAttributesDropdown(attributes) : 
+          this.renderProductSelectedAttributes(attributes)
+          }
+        
         </div>
         <div
           style={{

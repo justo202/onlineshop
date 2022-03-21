@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CartPage from "./cartPage";
+import { ReactComponent as CartLogo } from '../svg/cart.svg';
 
 class CartDropDown extends Component {
   constructor(props) {
@@ -39,6 +40,17 @@ class CartDropDown extends Component {
   renderTotal = (total, cur) => {
     return total.filter((item) => item.label === cur.label)[0];
   };
+  renderProductAmount(amount) {
+
+    if(amount > 0)
+    return (
+      <div className="cart-product-amount">
+        {amount}
+      </div>
+    )
+    return
+  }
+
   render() {
     const { isListOpen } = this.state;
 
@@ -46,6 +58,7 @@ class CartDropDown extends Component {
       this.props.total,
       this.props.currency
     );
+    console.log(this.props.cart)
     return (
       <>
         <div>
@@ -53,27 +66,28 @@ class CartDropDown extends Component {
             type="button"
             onClick={!isListOpen ? () => this.openMenu() : undefined}
             className="currencyBtn"
-            style={{ height: "100%" }}
+            style={{ height: "100%", position: 'relative' }}
           >
-            <img
-              style={{ height: "30px" }}
-              src="./images/cart.svg"
+            {this.renderProductAmount(this.props.cart.length)}
+            <CartLogo
+              className="cart-logo"
               alt="cart"
             />
+            
           </button>
           {isListOpen && (
             <div
-              style={{ width: "400px", padding: "10px", right: "10px" }}
               type="list"
-              className="dropDown"
+              className="drop-down-cart"
             >
-              <div style={{ maxHeight: "500px", overflowY: "scroll" }}>
+              <div className="cart-items-dropdown-container">
                 <CartPage
                   decrementCartItem={this.props.decrementCartItem}
                   incrementCartItem={this.props.incrementCartItem}
                   getProductPrice={this.props.getProductPrice}
                   currency={this.props.currency}
                   cart={this.props.cart}
+                  isDropDown
                 />
               </div>
               <div

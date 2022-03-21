@@ -7,7 +7,7 @@ class CartPage extends Component {
   renderCartItems(cart) {
     return cart.map((item) => {
       return (
-        <CartItem decrementCartItem={this.props.decrementCartItem} incrementCartItem={this.props.incrementCartItem} currency={this.props.currency} data={item} getProductPrice={this.props.getProductPrice}/>
+        <CartItem isDropDown={this.props.isDropDown} decrementCartItem={this.props.decrementCartItem} incrementCartItem={this.props.incrementCartItem} currency={this.props.currency} data={item} getProductPrice={this.props.getProductPrice}/>
       );
     });
   }

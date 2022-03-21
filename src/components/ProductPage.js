@@ -35,9 +35,9 @@ class ProductPage extends Component {
     }
     return null;
   }
-  setSelectedAttribute(attributeId, value, type) {
+  setSelectedAttribute(attributeId, displayValue, type, value) {
     var copy = this.state.selectedAttributes;
-    copy[attributeId] = [value, type];
+    copy[attributeId] = [displayValue, type, value];
     this.setState({
       selectedAttributes: copy,
     });
@@ -59,7 +59,8 @@ class ProductPage extends Component {
                 this.setSelectedAttribute(
                   attribute.id,
                   item.displayValue,
-                  attribute.type
+                  attribute.type,
+                  item.value
                 )
               }
               style={{

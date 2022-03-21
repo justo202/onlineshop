@@ -91,6 +91,7 @@ class MainComponent extends Component {
 
     var productMap = "Nothing loaded";
     if (!products.isLoading) {
+      
       productMap = products.products.map((product) => {
         const curPrice = this.getProductPrice(product.prices, currency.selected.label);
         return (
@@ -102,6 +103,10 @@ class MainComponent extends Component {
             img={product.gallery[0]}
             inStock={product.inStock}
             id={product.id}
+            brand={product.brand}
+            gallery={product.gallery}
+            addToCart={this.props.addToCart}
+            prices={product.prices}
            
           />
         );

@@ -35,7 +35,6 @@ export const Cart = (state = [], action) => {
     case ActionTypes.DECREMENT_AMOUNT:
       // if product quantity becomes less than 0 remove it from the list
       if (product.quantity > 1) {
-        console.log(product);
         newState = newState.map((item) =>
           item.id === product.id &&
           keysEqual(item.attributes, product.attributes)

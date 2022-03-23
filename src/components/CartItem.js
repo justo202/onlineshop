@@ -43,7 +43,7 @@ class CartItem extends Component {
     const mapped = Object.keys(attributes).map((key, index) => {
       const attribute = attributes[key];
       return (
-        <li>
+        <li key={index}>
           {key}:{" "}
           <span
             style={{

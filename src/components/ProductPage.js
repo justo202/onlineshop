@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import parse from 'html-react-parser';
 class ProductPage extends Component {
   constructor(props) {
     super(props);
@@ -109,7 +109,6 @@ class ProductPage extends Component {
         id,
         quantity: 1,
       };
-      console.log(product);
       this.props.addToCart(product);
       alert("Product added!");
     }
@@ -163,14 +162,15 @@ class ProductPage extends Component {
                       this.addToCart(
                         this.state.selectedAttributes,
                         this.state.productInfo,
-                        this.state.id
+                        this.state.productInfo.id
                       )
                   : undefined
               }
             >
               {inStock ? "Add to cart" : "Item out of stock"}
             </button>
-            <div dangerouslySetInnerHTML={{ __html: `${description}` }} />
+            {parse(description)}
+            
           </div>
         </div>
       );

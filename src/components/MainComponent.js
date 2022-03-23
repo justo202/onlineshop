@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Product from "./Product";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
 import ProductPage from "./ProductPage";
 import { fetchProducts, selectCategory, fetchNavbarInfo, selectCurrency, addToCart, incrementCartItem, decrementCartItem, fetchSelectedProductInfo } from "../redux/ActionCreator";
@@ -86,7 +86,6 @@ class MainComponent extends Component {
    fetchProductinfo =  (id) => {
     const {fetchSelectedProductInfo, client} = this.props
     fetchSelectedProductInfo(id, client)
-    console.log(this.props.productInfo)
 
   }
   
@@ -121,7 +120,6 @@ class MainComponent extends Component {
         );
       });
     }
-  
       return (
         <>
           <div
@@ -146,20 +144,20 @@ class MainComponent extends Component {
   
           <div className="container">
             
-            <Switch>
+            <Routes>
               <Route
                 path="/product/:id"
-                component={(props) => (
-                  <ProductPage currency={currency.selected} getProductPrice={this.getProductPrice} data={productInfo} addToCart={addToCart} client={this.props.client} {...props} />
-                )}
+                element={
+                  <ProductPage currency={currency.selected} getProductPrice={this.getProductPrice} data={productInfo} addToCart={addToCart} client={this.props.client} />
+                }
               />
                <Route
               path="/cart"
-              component={() => <CartPage decrementCartItem={decrementCartItem} incrementCartItem={incrementCartItem} currency={currency.selected} getProductPrice={this.getProductPrice} cart={cart}/>}
+              element={<CartPage decrementCartItem={decrementCartItem} incrementCartItem={incrementCartItem} currency={currency.selected} getProductPrice={this.getProductPrice} cart={cart}/>}
               />
               <Route
                 path="/"
-                component={() =>
+                element={
                   this.renderProductGrid(
                     category.selected,
                     products.isLoading,
@@ -168,11 +166,11 @@ class MainComponent extends Component {
                 }
               />
              
-            </Switch>
+            </Routes>
           </div>
         </>
       );
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);

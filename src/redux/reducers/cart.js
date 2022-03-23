@@ -21,10 +21,10 @@ export const Cart = (state = [], action) => {
         );
 
         return newState;
-      } else {
-        newState.push(product);
-        return newState;
       }
+      newState.push(product);
+      return newState;
+      
     case ActionTypes.INCREMENT_AMOUNT:
       newState = newState.map((item) =>
         item.id === product.id && keysEqual(item.attributes, product.attributes)
@@ -36,21 +36,15 @@ export const Cart = (state = [], action) => {
       // if product quantity becomes less than 0 remove it from the list
       if (product.quantity > 1) {
         newState = newState.map((item) =>
-          item.id === product.id &&
-          keysEqual(item.attributes, product.attributes)
+          item.id === product.id && keysEqual(item.attributes, product.attributes)
             ? { ...item, quantity: item.quantity - 1 }
             : item
         );
       } else {
         // Filters out the product. find it by finding the matching ID and then checking if it has the same attributes
         newState = newState.filter((item) => {
-          if (item.id !== product.id) {
-            return true;
-          } else if (!keysEqual(item.attributes, product.attributes)) {
-            return true;
-          } else {
-            return false;
-          }
+         if (item.id === product.id && keysEqual(item.attributes, product.attributes)) return false;
+          return true
         });
       }
       return newState;

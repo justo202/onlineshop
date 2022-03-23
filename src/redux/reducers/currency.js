@@ -1,13 +1,6 @@
 import * as ActionTypes from "../actionTypes";
 
-export const Currency = (
-  state = {
-    currency: [""],
-    selected: { symbol: "$", label: "USD" },
-    isLoading: true,
-  },
-  action
-) => {
+export const Currency = (state = {currency: [""], selected: { symbol: "$", label: "USD" }, isLoading: true,}, action) => {
   switch (action.type) {
     case ActionTypes.UPDATE_SELECTED_CURRENCY:
       return { ...state, selected: action.payload, isLoading: false };

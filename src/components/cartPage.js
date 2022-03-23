@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import CartItem from "./CartItem";
 
 class CartPage extends Component {
-
-
   renderCartItems(cart) {
     return cart.map((item, index) => {
       return (

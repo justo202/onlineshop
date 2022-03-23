@@ -19,13 +19,12 @@ class CurrencySelect extends Component {
 
  selectItem = (item) => {
     const { setCurrency } = this.props;
-    
-  
     this.setState({
     selectedCurrency: item,
     isListOpen: false,
     }, () => setCurrency(item));
   }
+
   closeMenu = () => {
     this.props.changeDisplayBackground()
     this.setState({
@@ -34,7 +33,6 @@ class CurrencySelect extends Component {
   }
   componentDidUpdate(){
     const { isListOpen } = this.state;
-  
     setTimeout(() => {
       if(isListOpen){
         window.addEventListener('click', this.closeMenu)

@@ -53,7 +53,6 @@ class CartDropDown extends Component {
 
   render() {
     const { isListOpen } = this.state;
-
     const displayTotal = this.renderTotal(
       this.props.total,
       this.props.currency
@@ -102,7 +101,6 @@ class CartDropDown extends Component {
                 <Link to={"/cart"}>
                   <button className="view-bag-btn">VIEW BAG</button>
                 </Link>
-
                 <button
                   onClick={() => alert("Check out clicked!")}
                   className="check-out-btn"

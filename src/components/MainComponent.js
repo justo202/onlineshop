@@ -7,8 +7,6 @@ import ProductPage from "./ProductPage";
 import { fetchProducts, selectCategory, fetchNavbarInfo, selectCurrency, addToCart, incrementCartItem, decrementCartItem, fetchSelectedProductInfo } from "../redux/ActionCreator";
 import CartPage from "./cartPage";
 
-
-
 const mapStateToProps = state => {
   return {
     products: state.products,
@@ -92,10 +90,7 @@ class MainComponent extends Component {
   render() {
 
     const { products, currency, category, addToCart, cart, incrementCartItem, decrementCartItem, total, productInfo } = this.props
-  
-    const {
-      displayDarkBackground,
-    } = this.state;
+    const { displayDarkBackground } = this.state;
 
     var productMap = "Nothing loaded";
     if (!products.isLoading) {
@@ -141,9 +136,7 @@ class MainComponent extends Component {
             total={total}
             capitalizeName={this.capitalizeName}
           />
-  
           <div className="container">
-            
             <Routes>
               <Route
                 path="/product/:id"

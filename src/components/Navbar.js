@@ -31,7 +31,6 @@ class Navbar extends Component {
                   key={index}
                   onClick={() => changeCategory(item.name)}
                 >
-                  {" "}
                   <p>{capitalizeName(item.name)}</p>
                 </Link>
               ))
@@ -60,7 +59,6 @@ class Navbar extends Component {
             />
           </div>
         </div>
-      
     );
   }
 }

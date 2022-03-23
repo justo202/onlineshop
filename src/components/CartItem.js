@@ -36,7 +36,6 @@ class CartItem extends Component {
         </div>
       );
     });
-
     return <div className="product-atributes-cart">{mapped}</div>;
   }
   renderProductSelectedAttributesDropdown(attributes) {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as CartLogo } from "../svg/cart.svg";
 class Product extends Component {
+
   addProduct(brand, name, prices, gallery, id) {
     const product = {
       attributes: {},
@@ -17,8 +18,7 @@ class Product extends Component {
   }
 
   render() {
-    const { img, name, price, symbol, inStock, id, brand, gallery, prices, fetchProductinfo  } =
-      this.props;
+    const { img, name, price, symbol, inStock, id, brand, gallery, prices, fetchProductinfo  } = this.props;
     return (
       <div onClick={() => fetchProductinfo(id)}className={`productContainer ${inStock ? "" : "soldOut"}`}>
         <Link to={`/product/${id}`}>

@@ -1,9 +1,7 @@
 import * as ActionTypes from "../actionTypes";
 
 export const Total = (
-  state = [{ symbol: "$", label: "USD", amount: 0 }],
-  action
-) => {
+  state = [{ symbol: "$", label: "USD", amount: 0 }], action) => {
   switch (action.type) {
     case ActionTypes.CALCULATE_TOTAL:
       const { prices, isAdded } = action.payload;
@@ -12,9 +10,7 @@ export const Total = (
         const productPrice = prices.filter((item) =>
           compare(item.currency, price)
         )[0]; // gets the product price for the correct currency
-        var total = isAdded
-          ? price.amount + productPrice.amount
-          : price.amount - productPrice.amount;
+        var total = isAdded ? price.amount + productPrice.amount : price.amount - productPrice.amount;
         return { ...price, amount: total >= 0 ? total : 0 }; //if for some reason total becomes less than 0 return 0 instead of a negative number
       });
 

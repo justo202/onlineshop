@@ -11,7 +11,7 @@ class ProductPage extends Component {
       displayImage: "",
     };
   }
-  // Updates the currency in the state each time props change
+  // updates state when props change
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.currency !== props.currency) {
       return {
@@ -99,7 +99,7 @@ class ProductPage extends Component {
     if (Object.values(attributes).includes("")) {
       alert("Please select all attributes");
     } else {
-      //create a copy of the attribues and not reference them directly SINCE OBJCETS ARE PASSED AS REFERENCES AND NOT ACTUAL OBJECTS weaauirhjodtpkh
+      //create a copy of the attribues and not reference them directly SINCE OBJCETS ARE PASSED AS REFERENCES AND NOT ACTUAL OBJECTS 
       const product = {
         attributes: { ...attributes },
         brand,
@@ -157,20 +157,12 @@ class ProductPage extends Component {
                 cursor: inStock ? "pointer" : "auto",
               }}
               onClick={
-                inStock
-                  ? () =>
-                      this.addToCart(
-                        this.state.selectedAttributes,
-                        this.state.productInfo,
-                        this.state.productInfo.id
-                      )
-                  : undefined
+                inStock ? () =>  this.addToCart(this.state.selectedAttributes, this.state.productInfo, this.state.productInfo.id) : undefined
               }
             >
               {inStock ? "Add to cart" : "Item out of stock"}
             </button>
             {parse(description)}
-            
           </div>
         </div>
       );

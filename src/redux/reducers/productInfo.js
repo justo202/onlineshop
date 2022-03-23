@@ -6,7 +6,6 @@ export const ProductInfo = (state = { isLoading: true, productInfo: {}},action) 
       return {isLoading: false, productInfo: {...action.payload} };
     case ActionTypes.PRODUCT_INFO_LOADING:
       return { ...state, isLoading: true };
-
     default:
       return state;
   }

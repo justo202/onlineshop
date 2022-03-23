@@ -36,7 +36,6 @@ export const getSelectedProduct = (productId, client) =>
         attributeMap[element.id] = "";
       });
       return {
-        productLoading: result.loading,
         productInfo: result.data.product,
         selectedAttributes: attributeMap,
         displayImage: result.data.product.gallery[0],

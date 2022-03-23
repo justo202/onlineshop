@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { getSelectedProduct } from "../database/databaseFunctions";
 
 class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.params.id,
       productLoading: true,
       productInfo: [],
       selectedAttributes: null,
@@ -13,25 +11,25 @@ class ProductPage extends Component {
       displayImage: "",
     };
   }
-
-  componentDidMount() {
-    getSelectedProduct(this.state.id, this.props.client).then((result) => {
-      if(result !== undefined)
-        this.setState({
-          productLoading: result.productLoading,
-          productInfo: result.productInfo,
-          selectedAttributes: result.selectedAttributes,
-          displayImage: result.displayImage,
-        });
-    });
-  }
-
   // Updates the currency in the state each time props change
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.currency !== props.currency) {
       return {
         currency: props.currency,
       };
+    }
+    if(current_state.productInfo !== props.data.productInfo.productInfo) {
+      return {
+        productInfo: props.data.productInfo.productInfo,
+        selectedAttributes: props.data.productInfo.selectedAttributes,
+        displayImage: props.data.productInfo.displayImage,
+        productLoading: props.data.isLoading
+      }
+    }
+    if(current_state.productLoading !== props.data.isLoading) {
+      return {
+        productLoading: props.data.isLoading
+      }
     }
     return null;
   }

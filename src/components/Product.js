@@ -17,10 +17,10 @@ class Product extends Component {
   }
 
   render() {
-    const { img, name, price, symbol, inStock, id, brand, gallery, prices } =
+    const { img, name, price, symbol, inStock, id, brand, gallery, prices, fetchProductinfo  } =
       this.props;
     return (
-      <div className={`productContainer ${inStock ? "" : "soldOut"}`}>
+      <div onClick={() => fetchProductinfo(id)}className={`productContainer ${inStock ? "" : "soldOut"}`}>
         <Link to={`/product/${id}`}>
           <div
             style={{ display: `${inStock ? "none" : "block"}` }}

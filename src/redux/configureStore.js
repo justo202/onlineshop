@@ -8,6 +8,7 @@ import { Category } from "./reducers/category";
 import { Currency } from "./reducers/currency";
 import { Cart } from "./reducers/cart";
 import { Total } from "./reducers/total";
+import { ProductInfo } from "./reducers/productInfo";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,8 @@ const rootReducer = combineReducers({
   currency: Currency,
   cart: Cart,
   total: Total,
+  productInfo: ProductInfo
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(persistedReducer, applyMiddleware(thunk));

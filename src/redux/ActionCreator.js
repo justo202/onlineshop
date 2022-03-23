@@ -2,6 +2,7 @@ import * as ActionTypes from "./actionTypes";
 import {
   getSelectedProducts,
   getAllCurencyAndCategory,
+  getSelectedProduct
 } from "../database/databaseFunctions";
 
 export const fetchProducts = (client, selectedCategory) => (dispatch) => {
@@ -23,6 +24,14 @@ export const fetchNavbarInfo = (client) => (dispatch) => {
 
   });
 };
+export const fetchSelectedProductInfo = (client, id) => (dispatch) => {
+  
+  dispatch(productInfoLoading(true))
+  getSelectedProduct(id, client).then((result) => {
+    if(result !== undefined)
+      dispatch(updateSelectedProductInfo(result))
+  });
+}
 export const selectCategory = (category) => ({
   type: ActionTypes.UPDATE_SELECTED_CATEGORY,
   payload: category,
@@ -86,3 +95,10 @@ const updateProducts = (products) => ({
   type: ActionTypes.UPDATE_PRODUCTS,
   payload: products,
 });
+const productInfoLoading = () => ({
+  type: ActionTypes.PRODUCT_INFO_LOADING
+})
+const updateSelectedProductInfo = (product) => ({
+  type: ActionTypes.UPDATE_PRODUCT_INFO,
+  payload: product
+})

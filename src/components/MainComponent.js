@@ -4,7 +4,7 @@ import Product from "./Product";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import ProductPage from "./ProductPage";
-import { fetchProducts, selectCategory, fetchNavbarInfo, selectCurrency, addToCart, incrementCartItem, decrementCartItem } from "../redux/ActionCreator";
+import { fetchProducts, selectCategory, fetchNavbarInfo, selectCurrency, addToCart, incrementCartItem, decrementCartItem, fetchSelectedProductInfo } from "../redux/ActionCreator";
 import CartPage from "./cartPage";
 
 
@@ -15,7 +15,8 @@ const mapStateToProps = state => {
     category: state.category,
     currency: state.currency,
     cart: state.cart,
-    total: state.total
+    total: state.total,
+    productInfo: state.productInfo
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -27,6 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
   addToCart: (product) => dispatch(addToCart(product)),
   incrementCartItem: (product) => dispatch(incrementCartItem(product)),
   decrementCartItem: (product) => dispatch(decrementCartItem(product)),
+  fetchSelectedProductInfo: (id, client) => dispatch(fetchSelectedProductInfo(client, id))
 
 });
 class MainComponent extends Component {
@@ -81,9 +83,16 @@ class MainComponent extends Component {
     if(name === undefined || name === null || name === '') return
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
+   fetchProductinfo =  (id) => {
+    const {fetchSelectedProductInfo, client} = this.props
+    fetchSelectedProductInfo(id, client)
+    console.log(this.props.productInfo)
+
+  }
+  
   render() {
 
-    const { products, currency, category, addToCart, cart, incrementCartItem, decrementCartItem, total } = this.props
+    const { products, currency, category, addToCart, cart, incrementCartItem, decrementCartItem, total, productInfo } = this.props
   
     const {
       displayDarkBackground,
@@ -107,7 +116,7 @@ class MainComponent extends Component {
             gallery={product.gallery}
             addToCart={this.props.addToCart}
             prices={product.prices}
-           
+            fetchProductinfo={this.fetchProductinfo}
           />
         );
       });
@@ -141,7 +150,7 @@ class MainComponent extends Component {
               <Route
                 path="/product/:id"
                 component={(props) => (
-                  <ProductPage currency={currency.selected} getProductPrice={this.getProductPrice} addToCart={addToCart} client={this.props.client} {...props} />
+                  <ProductPage currency={currency.selected} getProductPrice={this.getProductPrice} data={productInfo} addToCart={addToCart} client={this.props.client} {...props} />
                 )}
               />
                <Route
@@ -163,8 +172,6 @@ class MainComponent extends Component {
           </div>
         </>
       );
-    
-   
   }
 }
 

@@ -429,6 +429,9 @@ code {
   justify-content: center;
   position: relative;
 }
+.cart-image-container img {
+  object-fit: contain;
+}
 .cart-image-container button {
   position: absolute;
   top: 50%;

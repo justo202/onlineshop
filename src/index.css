@@ -168,6 +168,10 @@ code {
   cursor: pointer;
   overflow: hidden;
 }
+.product-price-name-container {
+  margin-top: auto;
+}
+
 .productContainer:hover > .add-to-cart-button{
   display: block;
 }
@@ -371,6 +375,14 @@ code {
   transition-duration: 0.5s;
   background-color: transparent;
 }
+.attribute-container h4 {
+  font-weight: bolder;
+}
+
+.attribute-container #selected {
+  font-style: italic;
+}
+
 .atrribute-select:hover {
   cursor: pointer;
   background-color: black;

@@ -31,7 +31,7 @@ class Product extends Component {
           <div className="img-container">
             <img src={img} alt={name} />
           </div>
-          <div style={{ marginTop: "auto" }}>
+          <div className="product-price-name-container">
             <h5>
               {brand} {name}
             </h5>

@@ -43,10 +43,10 @@ class ProductPage extends Component {
   //Renders the attribute section of the product
   renderAttributes(attributes) {
     const overlay = attributes.map((attribute) => (
-      <div key={attribute.id}>
-        <h4 style={{ fontWeight: "bolder" }}>
+      <div className="attribute-container"key={attribute.id}>
+        <h4>
           {attribute.name}:{" "}
-          <span style={{ fontStyle: "italic" }}>
+          <span id="selected">
             {this.state.selectedAttributes[attribute.id][0]}
           </span>
         </h4>

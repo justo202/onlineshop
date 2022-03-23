@@ -58,15 +58,13 @@ class CartDropDown extends Component {
       this.props.total,
       this.props.currency
     );
-    console.log(this.props.cart)
     return (
       <>
         <div>
           <button
             type="button"
             onClick={!isListOpen ? () => this.openMenu() : undefined}
-            className="currencyBtn"
-            style={{ height: "100%", position: 'relative' }}
+            className="currencyBtn cart-logo-container"
           >
             {this.renderProductAmount(this.props.cart.length)}
             <CartLogo
@@ -91,25 +89,15 @@ class CartDropDown extends Component {
                 />
               </div>
               <div
-                style={{
-                  padding: "5px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                }}
+                className="total-amount-container"
               >
                 <h5>Total</h5>
                 <h5>
                   {this.props.currency.symbol} {displayTotal.amount.toFixed(2)}
                 </h5>
               </div>
-
               <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
+                className="cart-button-container"
               >
                 <Link to={"/cart"}>
                   <button className="view-bag-btn">VIEW BAG</button>

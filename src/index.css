@@ -75,7 +75,10 @@ code {
   display: inline;
   float: left;
 }
-
+.navbar-btn-container {
+  display: flex;
+  flex-direction: row;
+}
 .container {
   margin-left: auto;
   margin-right: auto;
@@ -114,16 +117,31 @@ code {
 .productContainer {
   z-index: 1;
   position: relative;
-  flex-direction: row;
   width: 30%;
   padding: 10px;
   transition-duration: 0.5s;
   cursor: pointer;
+  overflow: hidden;
 }
 .productContainer:hover > .add-to-cart-button{
   display: block;
-
-  
+}
+.productContainer a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.productContainer img {
+  display: block;
+  width: 100%;
+}
+.img-container {
+  width: 100%;
+  overflow: hidden;
+  max-height: 30rem;
 }
 .soldOut {
   opacity: 0.5;
@@ -162,12 +180,11 @@ code {
 
 }
 .product-image-grid {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   width: 12%;
-  height: 600px;
+  max-height: 650px;
   overflow: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -176,10 +193,11 @@ code {
 .product-image-grid::-webkit-scrollbar {
   display: none;
 }
-.large-image {
-  padding: 10px;
+.large-image-container {
+
   width: 45%;
-  height: 600px;
+  max-height: 650px;
+  overflow: auto;
 }
 .item-info-grid {
   padding: 10px;
@@ -189,9 +207,14 @@ code {
   width: 30%;
   height: 100%;
 }
-
+.title {
+  padding: 5px 0; 
+}
 .title h3, h2 {
   margin: 0
+}
+.title h3 {
+  font-weight: normal;
 }
 
 .atrribute-select {
@@ -207,6 +230,22 @@ code {
   background-color: black;
   color: white;
 }
+.product-price-container h4 {
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+.product-price-container #price-number {
+  margin-top: 0; 
+  font-weight: bold;
+}
+.product-page-button {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--green);
+  color: white;
+  border: none;
+}
+
 .drop-down-cart {
   position: absolute;
   top: 60px;
@@ -247,22 +286,36 @@ code {
   -ms-overflow-style: none !important;  /* IE and Edge */
   scrollbar-width: none !important;  /* Firefox */
   max-height: 500px; 
- 
 
 }
+.total-amount-container {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.cart-button-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.cart-logo-container {
+  height: 100%;
+  position: relative;
+}
 /* width */
-.cart-items-dropdown-container::-webkit-scrollbar {
+.cart-items-dropdown-container::-webkit-scrollbar, .large-image-container::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Track */
-.cart-items-dropdown-container::-webkit-scrollbar-track {
+.cart-items-dropdown-container::-webkit-scrollbar-track, .large-image-container::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 5px;
 }
 
 /* Handle */
-.cart-items-dropdown-container::-webkit-scrollbar-thumb {
+.cart-items-dropdown-container::-webkit-scrollbar-thumb, .large-image-container::-webkit-scrollbar-thumb {
   background: var(--green);
   border-radius: 10px;
 }
@@ -271,6 +324,18 @@ code {
   flex-direction: column;
   justify-content: space-between;
 }
+.cart-item-info h4 {
+  margin: 10px 0;
+  width: 100%;
+   font-weight: bold;
+}
+.cart-image-quantity {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  justify-content: space-between;
+}
+
 .product-atributes-cart {
   display: inline-flex;
   width: 100%;
@@ -304,6 +369,7 @@ code {
   justify-content: space-between;
   height: 100%;
   width: 20%;
+  text-align: center;
 }
 .qty-cart button {
   width: 100%;
@@ -333,8 +399,15 @@ code {
   font-size: 20px;
   background-color: transparent;
   border: none;
-  
+  width: 10px;
 }
+.left {
+  left: 5px
+}
+.right {
+  right: 5px;
+}
+
 .view-bag-btn, .check-out-btn, .cart-image-container button:hover {
   cursor: pointer;
   
@@ -349,4 +422,13 @@ code {
   background: var(--green);
   color: white;
   padding: 15px 30px;
+}
+
+.dark-background {
+  width: 100%;
+  background-color: black;
+  height: 100%;
+  opacity: 0.6;
+  z-index: 2;
+  position: fixed;
 }

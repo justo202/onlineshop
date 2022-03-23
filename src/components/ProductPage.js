@@ -84,7 +84,7 @@ class ProductPage extends Component {
     const price = this.props.getProductPrice(prices, cur.label);
 
     return (
-      <h4 style={{ marginTop: 0, fontWeight: "bold" }}>
+      <h4 id="price-number">
         {cur.symbol}
         {price.amount}
       </h4>
@@ -129,15 +129,13 @@ class ProductPage extends Component {
                 onTouchStart={() => this.changeDisplayImage(image)}
                 key={index}
                 width={"100%"}
-                style={{ transitionDuration: "2" }}
                 alt="smaller product"
                 src={image}
               />
             ))}
           </div>
-          <div className="large-image">
+          <div className="large-image-container">
             <img
-              height={"100%"}
               width={"100%"}
               alt="main display"
               src={this.state.displayImage}
@@ -146,22 +144,18 @@ class ProductPage extends Component {
           <div className="item-info-grid">
             <div className="title">
               <h2>{brand}</h2>
-              <h3 style={{ fontWeight: "normal" }}>{name}</h3>
+              <h3>{name}</h3>
             </div>
             {this.renderAttributes(attributes)}
-            <div>
-              <h4 style={{ fontWeight: "bolder", marginBottom: "5px" }}>
+            <div className="product-price-container">
+              <h4>
                 Price
               </h4>
               {this.renderProductPrice(prices)}
             </div>
             <button
+            className="product-page-button"
               style={{
-                width: "100%",
-                padding: "15px",
-                backgroundColor: "#57ff65",
-                color: "white",
-                border: "none",
                 opacity: inStock ? 1 : 0.6,
                 cursor: inStock ? "pointer" : "auto",
               }}

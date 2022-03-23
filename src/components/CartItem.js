@@ -12,7 +12,7 @@ class CartItem extends Component {
     const price = this.props.getProductPrice(prices, cur.label);
 
     return (
-      <h4 style={{ margin: "10px 0", width: "100%", fontWeight: "bold" }}>
+      <h4>
         {cur.symbol}
         {price.amount}
       </h4>
@@ -22,51 +22,46 @@ class CartItem extends Component {
     const mapped = Object.keys(attributes).map((key, index) => {
       return (
         <div className="attribute-display">
-        <h6>{key}</h6>
-        <button
-          style={{
-            backgroundColor:
-              attributes[key][1] === "swatch" ? `${attributes[key][0]}` : "",
-          }}
-          key={index}
-          className="atrribute-select"
-        >
-          {attributes[key][1] === "text" && attributes[key][0]}
-        </button>
+          <h6>{key}</h6>
+          <button
+            style={{
+              backgroundColor:
+                attributes[key][1] === "swatch" ? `${attributes[key][0]}` : "",
+            }}
+            key={index}
+            className="atrribute-select"
+          >
+            {attributes[key][1] === "text" && attributes[key][0]}
+          </button>
         </div>
       );
     });
 
-    return (
-      <div className="product-atributes-cart">
-          {mapped}
-
-      </div>
-      
-      );
+    return <div className="product-atributes-cart">{mapped}</div>;
   }
   renderProductSelectedAttributesDropdown(attributes) {
-
     const mapped = Object.keys(attributes).map((key, index) => {
-      console.log(attributes[key])
+      const attribute = attributes[key];
       return (
-       
-          <li>
-          {key}: <span style={{color: attributes[key][1] === 'swatch' ? attributes[key][2] : ''}}className="attribute">{attributes[key][0]}</span>
-          </li>
-        
+        <li>
+          {key}:{" "}
+          <span
+            style={{
+              color:
+                attribute[1] === "swatch" && attribute[0] !== "White"
+                  ? attribute[2]
+                  : "",
+            }}
+            className="attribute"
+          >
+            {attribute[0]}
+          </span>
+        </li>
       );
     });
 
-    return (
-      <ul className="attribute-dropdown-list">
-        {mapped}
-      </ul>
-      
-      );
-
+    return <ul className="attribute-dropdown-list">{mapped}</ul>;
   }
-
 
   renderQuantity(quantity, itemInfo) {
     return (
@@ -79,7 +74,7 @@ class CartItem extends Component {
         >
           +
         </button>
-        <h5 style={{ textAlign: "center" }}>{quantity}</h5>
+        <h5>{quantity}</h5>
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -101,16 +96,16 @@ class CartItem extends Component {
                 e.stopPropagation();
                 this.previousImage();
               }}
-              style={{width: '10px', left: '5px'}}
+              className="left"
             >
               <p>{"<"}</p>
             </button>
             <button
-              style={{ width: '10px',right: "5px" }}
               onClick={(e) => {
                 e.stopPropagation();
                 this.nextImage();
               }}
+              className="right"
             >
               <p>{">"}</p>
             </button>
@@ -142,27 +137,21 @@ class CartItem extends Component {
   render() {
     const { name, brand, prices, attributes, gallery, id, quantity } =
       this.props.data;
-    const {isDropDown = false} = this.props
+    const { isDropDown = false } = this.props;
     return (
       <div className="cart-item-container">
         <div className="cart-item-info">
           <div className="title">
             <h2>{brand}</h2>
-            <h3 style={{ fontWeight: "normal" }}>{name}</h3>
+            <h3>{name}</h3>
           </div>
           {this.renderProductPrice(prices)}
-          {isDropDown ? this.renderProductSelectedAttributesDropdown(attributes) : 
-          this.renderProductSelectedAttributes(attributes)
-          }
-        
+          {isDropDown
+            ? this.renderProductSelectedAttributesDropdown(attributes)
+            : this.renderProductSelectedAttributes(attributes)}
         </div>
         <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "250px",
-            justifyContent: "space-between",
-          }}
+        className="cart-image-quantity"
         >
           {this.renderQuantity(quantity, { attributes, id, prices })}
           {this.renderImage(name, gallery)}

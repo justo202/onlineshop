@@ -16,7 +16,7 @@ class CartPage extends Component {
 
     return (
       <>
-        <div style={{ padding: "5px 20px" }}>
+        <div className="title">
           <h2>Cart</h2>
         </div>
         {cart.length ? this.renderCartItems(cart) : <h5>No items in cart</h5>}

@@ -19,7 +19,7 @@ class Navbar extends Component {
     } = this.props;
 
     return (
-      <div style={{ display: "block", zIndex: 999, position: "relative" }}>
+     
         <div className="navbar">
           <div className="navigation">
             {isLoading ? (
@@ -38,7 +38,7 @@ class Navbar extends Component {
             )}
           </div>
           <img alt="logo" height={"30px"} src="/images/check.png" />
-          <div style={{ display: "flex", direction: "row" }}>
+          <div className="navbar-btn-container">
             {isLoading ? (
               <h5>loading...</h5>
             ) : (
@@ -60,7 +60,7 @@ class Navbar extends Component {
             />
           </div>
         </div>
-      </div>
+      
     );
   }
 }

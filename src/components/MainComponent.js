@@ -68,7 +68,7 @@ class MainComponent extends Component {
   renderProductGrid = (selectedCategory, productLoading, productMap) => {
     return (
       <>
-        <div style={{ padding: "5px 20px" }}>
+        <div className="title">
           <h2>{this.capitalizeName(selectedCategory)}</h2>
         </div>
         <div className="grid">
@@ -116,15 +116,9 @@ class MainComponent extends Component {
       return (
         <>
           <div
-            id="darkBackground"
+            className="dark-background"
             style={{
-              position: "fixed",
               display: `${displayDarkBackground ? "block" : "none"}`,
-              width: "100%",
-              backgroundColor: "black",
-              height: "100%",
-              opacity: 0.6,
-              zIndex: 2,
             }}
           ></div>
           <Navbar

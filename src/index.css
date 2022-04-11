@@ -151,14 +151,17 @@ code {
   position: absolute;
   bottom: 4rem;
   right: 2rem;
-  display: none;
+  display: none !important;
   padding: 0.7rem;
   text-align: center;
   border-radius: 2rem;
   border: none;
   background-color: var(--green);
   cursor: pointer;
+  z-index: 5;
+  height: auto !important;
 }
+
 .productContainer {
   z-index: 1;
   position: relative;
@@ -173,7 +176,7 @@ code {
 }
 
 .productContainer:hover > .add-to-cart-button{
-  display: block;
+  display: block !important;
 }
 .productContainer a {
   text-decoration: none;

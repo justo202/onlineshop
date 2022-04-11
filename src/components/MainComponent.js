@@ -60,8 +60,11 @@ class MainComponent extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchNavbarInfo(this.props.client);
-    this.props.fetchProducts(this.props.client, this.props.category.selected);
+    const {client, category } = this.props
+    if(category.isLoading) {
+      this.props.fetchNavbarInfo(client);
+      this.props.fetchProducts(client, category.selected);
+    }
    
   }
 
@@ -100,16 +103,11 @@ class MainComponent extends Component {
         return (
           <Product
             key={product.id}
-            name={product.name}
+            product={product}
             price={curPrice.amount}
             symbol={curPrice.currency.symbol}
             img={product.gallery[0]}
-            inStock={product.inStock}
-            id={product.id}
-            brand={product.brand}
-            gallery={product.gallery}
             addToCart={this.props.addToCart}
-            prices={product.prices}
             fetchProductinfo={this.fetchProductinfo}
           />
         );
@@ -146,7 +144,7 @@ class MainComponent extends Component {
               />
                <Route
               path="/cart"
-              element={<CartPage decrementCartItem={decrementCartItem} incrementCartItem={incrementCartItem} currency={currency.selected} getProductPrice={this.getProductPrice} cart={cart}/>}
+              element={<CartPage decrementCartItem={decrementCartItem} incrementCartItem={incrementCartItem} currency={currency.selected} getProductPrice={this.getProductPrice} cart={cart.products}/>}
               />
               <Route
                 path="/"

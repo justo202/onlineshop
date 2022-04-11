@@ -21,7 +21,7 @@ class CartItem extends Component {
   renderProductSelectedAttributes(attributes) {
     const mapped = Object.keys(attributes).map((key, index) => {
       return (
-        <div className="attribute-display">
+        <div key={key} className="attribute-display">
           <h6>{key}</h6>
           <button
             style={{

@@ -65,7 +65,7 @@ class CartDropDown extends Component {
             onClick={!isListOpen ? () => this.openMenu() : undefined}
             className="currencyBtn cart-logo-container"
           >
-            {this.renderProductAmount(this.props.cart.length)}
+            {this.renderProductAmount(this.props.cart.total)}
             <CartLogo
               className="cart-logo"
               alt="cart"
@@ -83,7 +83,7 @@ class CartDropDown extends Component {
                   incrementCartItem={this.props.incrementCartItem}
                   getProductPrice={this.props.getProductPrice}
                   currency={this.props.currency}
-                  cart={this.props.cart}
+                  cart={this.props.cart.products}
                   isDropDown
                 />
               </div>

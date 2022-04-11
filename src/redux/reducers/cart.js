@@ -1,48 +1,51 @@
 import * as ActionTypes from "../actionTypes";
 
-export const Cart = (state = [], action) => {
-  var newState = [...state]; //copies state
+export const Cart = (state = {products: [], total: 0}, action) => {
+  var newState = {...state}; //copies state
   var product = { ...action.payload }; //copies product info that will be added to the cart
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
+      newState.total++; //increment the total
       // finds the product in the state if it exists
-      const exist = state.find(
+      const exist = state.products.find(
         (item) =>
           item.id === product.id &&
           keysEqual(item.attributes, product.attributes)
       );
         // if it exists then only increase it's quantity if it does not then add it to the state
       if (exist) {
-        newState = newState.map((item) =>
+        newState.products = newState.products.map((item) =>
           item.id === product.id &&
           keysEqual(item.attributes, product.attributes)
             ? { ...exist, quantity: exist.quantity + 1 }
             : item
         );
-
+        
         return newState;
       }
-      newState.push(product);
+      newState.products.push(product);
       return newState;
       
     case ActionTypes.INCREMENT_AMOUNT:
-      newState = newState.map((item) =>
+      newState.total++; //increment total
+      newState.products = newState.products.map((item) =>
         item.id === product.id && keysEqual(item.attributes, product.attributes)
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
       return newState;
     case ActionTypes.DECREMENT_AMOUNT:
+      newState.total-- //decrement total
       // if product quantity becomes less than 0 remove it from the list
       if (product.quantity > 1) {
-        newState = newState.map((item) =>
+        newState.products = newState.products.map((item) =>
           item.id === product.id && keysEqual(item.attributes, product.attributes)
             ? { ...item, quantity: item.quantity - 1 }
             : item
         );
       } else {
         // Filters out the product. find it by finding the matching ID and then checking if it has the same attributes
-        newState = newState.filter((item) => {
+        newState.products = newState.products.filter((item) => {
          if (item.id === product.id && keysEqual(item.attributes, product.attributes)) return false;
           return true
         });

@@ -17,8 +17,27 @@ class Product extends Component {
     alert("Product added to cart!");
   }
 
+  renderCartButton = ({attributes, brand, name, prices, gallery, id, inStock}) => {
+    if(inStock && attributes.length === 0) 
+      return (
+        <button
+        className="add-to-cart-button"
+        onClick={() => this.addProduct(brand, name, prices, gallery, id)}
+      >
+        <CartLogo className="cart-logo" fill="white" />
+      </button>
+      )
+    if(inStock && attributes.length > 0) 
+      return (
+     <Link to={`/product/${id}`} className="add-to-cart-button">
+     <CartLogo className="cart-logo" fill="white" />
+     </Link>  
+      )
+  }
   render() {
-    const { img, name, price, symbol, inStock, id, brand, gallery, prices, fetchProductinfo  } = this.props;
+    const { product, img, price, symbol, fetchProductinfo } = this.props;
+    const {name, id, inStock, brand} = product
+
     return (
       <div onClick={() => fetchProductinfo(id)}className={`productContainer ${inStock ? "" : "soldOut"}`}>
         <Link to={`/product/${id}`}>
@@ -39,15 +58,9 @@ class Product extends Component {
               {price} {symbol}
             </p>
           </div>
+          
         </Link>
-        {inStock && (
-          <button
-            className="add-to-cart-button"
-            onClick={() => this.addProduct(brand, name, prices, gallery, id)}
-          >
-            <CartLogo className="cart-logo" fill="white" />
-          </button>
-        )}
+     {this.renderCartButton(product)}
       </div>
     );
   }
